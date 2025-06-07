@@ -1,0 +1,1 @@
+export type PlaceCategory = 'park' | 'cafe' | 'shop' | 'hotel' | 'other'; 

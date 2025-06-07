@@ -45,7 +45,7 @@ export class AuthRepositoryImpl {
   }
 
   public clearStoredToken(): void {
-    authApi.logout(); // Wywołujemy wylogowanie na serwerze
+    authApi.logout();
     localStorage.removeItem(TOKEN_STORAGE_KEY);
   }
 } 

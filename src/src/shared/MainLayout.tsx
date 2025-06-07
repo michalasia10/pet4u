@@ -3,6 +3,7 @@ import { AppBar, Toolbar, Typography, Button, Container, Box } from '@mui/materi
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../shared/context/AuthContext';
 import { useMainLayoutPresenter } from './hooks/useMainLayoutPresenter';
+import { PetSwitcher } from './components/PetSwitcher';
 
 export const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated, logout } = useAuthContext();
@@ -28,14 +29,26 @@ export const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }
             variant="h6"
             component={RouterLink}
             to="/"
-            sx={{ flexGrow: 1, color: 'inherit', textDecoration: 'none' }}
+            sx={{ color: 'inherit', textDecoration: 'none' }}
           >
             {appTitle}
           </Typography>
+          <Button
+            color="inherit"
+            component={RouterLink}
+            to="/community"
+            sx={{ ml: 2 }}
+          >
+            Miejsca
+          </Button>
+          <Box sx={{ flexGrow: 1 }} />
           {isAuthenticated ? (
-            <Button color="inherit" onClick={handleLogout}>
-              {logoutButtonText}
-            </Button>
+            <>
+              <PetSwitcher />
+              <Button color="inherit" onClick={handleLogout} sx={{ ml: 2 }}>
+                {logoutButtonText}
+              </Button>
+            </>
           ) : (
             <Button color="inherit" component={RouterLink} to="/auth/login">
               {loginButtonText}

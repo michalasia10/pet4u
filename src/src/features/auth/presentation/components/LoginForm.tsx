@@ -1,12 +1,17 @@
 import { Box, TextField, Button, CircularProgress, Alert } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { loginFormSchema, type LoginFormValues } from '../../presentation/validation/loginFormSchema';
+import { type LoginFormValues } from '../../presentation/validation/loginFormSchema';
 import { useAuth } from '../../application/hooks/useAuth';
+import { useUserLoginFormSchema } from '../hooks/userLoginFormSchema';
+import { useLoginPagePresenter } from '../hooks/useLoginPagePresenter';
 
 export function LoginForm() {
   const { login, isLoggingIn, loginError } = useAuth();
-  
+  const { loginFormSchema } = useUserLoginFormSchema();
+  const { emailLabel, passwordLabel, loginButtonText } = useLoginPagePresenter();
+
+
   const {
     control,
     handleSubmit,
@@ -42,7 +47,7 @@ export function LoginForm() {
         render={({ field }) => (
           <TextField
             {...field}
-            label="Email"
+            label={emailLabel}
             variant="outlined"
             error={!!errors.email}
             helperText={errors.email?.message}
@@ -56,7 +61,7 @@ export function LoginForm() {
         render={({ field }) => (
           <TextField
             {...field}
-            label="Password"
+            label={passwordLabel}
             type="password"
             variant="outlined"
             error={!!errors.pass}
@@ -65,7 +70,7 @@ export function LoginForm() {
           />
         )}
       />
-      
+
       {loginError && <Alert severity="error">{loginError.message}</Alert>}
 
       <Button
@@ -75,7 +80,7 @@ export function LoginForm() {
         disabled={!isDirty || !isValid || isLoggingIn}
         fullWidth
       >
-        {isLoggingIn ? <CircularProgress size={24} /> : 'Login'}
+        {isLoggingIn ? <CircularProgress size={24} /> : loginButtonText}
       </Button>
     </Box>
   );

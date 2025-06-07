@@ -6,7 +6,7 @@ import { useHomePagePresenter } from '../hooks/useHomePagePresenter';
 
 export const HomePage: React.FC = () => {
   const { isAuthenticated, user } = useAuthContext();
-  const { welcomeText, subtitleText, loginButtonText } = useHomePagePresenter();
+  const { welcomeText, subtitleText, loginButtonText, canStartText, hiText } = useHomePagePresenter();
 
   return (
     <Box sx={{ textAlign: 'center' }}>
@@ -17,9 +17,20 @@ export const HomePage: React.FC = () => {
         {subtitleText}
       </Typography>
       {isAuthenticated ? (
+        <>
         <Typography variant="h6">
-          Cześć, {user?.firstName}!
+          {hiText}, {user?.firstName}!
         </Typography>
+        <Button
+          component={RouterLink}
+          to="/community"
+          variant="contained"
+          size="large"
+          sx={{ mt: 4 }}
+        >
+          {canStartText}
+        </Button>
+        </>
       ) : (
         <Button
           component={RouterLink}

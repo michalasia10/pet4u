@@ -1,4 +1,3 @@
-import React from 'react';
 import type { NonIndexRouteObject } from 'react-router-dom';
 import { LoginPage } from '../../features/auth/presentation/pages/LoginPage';
 

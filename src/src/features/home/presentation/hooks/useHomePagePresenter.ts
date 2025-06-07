@@ -7,5 +7,7 @@ export const useHomePagePresenter = () => {
     welcomeText: t('welcome'),
     subtitleText: t('subtitle'),
     loginButtonText: t('login_button'),
+    canStartText: t('can_start'),
+    hiText: t('hi'),
   };
 }; 

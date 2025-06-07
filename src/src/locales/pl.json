@@ -1,10 +1,33 @@
 {
+  "hi": "Cześć",
+  "can_start": "Możemy zacząć?",
   "welcome": "Witaj w Pet4U!",
   "subtitle": "Wszystko dla Twojego zwierzaka w jednym miejscu.",
-  "login_button": "Zaloguj się, aby rozpocząć",
-  "logout_button": "Wyloguj",
-  "login_page_title": "Zaloguj się",
-  "forgot_password": "Zapomniałeś hasła?",
-  "no_account": "Nie masz konta? Zarejestruj się",
-  "app_title": "Pet4U"
+  "app_title": "Pet4U",
+  "nav": {
+    "home": "Strona Główna",
+    "about": "O nas",
+    "contact": "Kontakt"
+  },
+  "auth": {
+    "login_page_title": "Zaloguj się",
+    "login_button": "Zaloguj się, aby rozpocząć",
+    "logout_button": "Wyloguj",
+    "forgot_password": "Zapomniałeś hasła?",
+    "no_account": "Nie masz konta? Zarejestruj się",
+    "login": "Zaloguj się",
+    "register": "Zarejestruj się",
+    "form": {
+      "emailLabel": "Adres e-mail",
+      "passwordLabel": "Hasło"
+    }
+  },
+  "validation": {
+    "email": {
+      "invalid": "Nieprawidłowy format adresu e-mail"
+    },
+    "password": {
+      "required": "Hasło jest wymagane"
+    }
+  }
 } 

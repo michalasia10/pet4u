@@ -1,5 +1,27 @@
 ---
-description:
-globs:
+description: 
+globs: 
 alwaysApply: false
 ---
+# Domain: Auth (Authentication & Identity)
+
+This domain is responsible for everything related to user identity, authentication, and authorization within the system.
+
+## Key Responsibilities:
+- Registering new users (both clients and business owners).
+- Authenticating users via various methods (e.g., email/password, social logins like Google/Facebook).
+- Logging users out and managing user sessions.
+- Handling the password reset mechanism.
+- Managing roles and permissions (e.g., `CLIENT`, `BUSINESS_OWNER`, `VET`, `GROOMER`, `ADMIN`).
+- Protecting application endpoints and resources based on roles and authentication status.
+
+## Core Use Cases:
+- A user signs up for a new account.
+- A user logs into the application.
+- A user requests a password reset link.
+- The system verifies a JWT with every request to a protected resource.
+
+## Relationships with Other Domains:
+- **Users**: Upon successful authentication, the `Auth` domain provides a user identifier, which is the key for operations within the `Users` domain.
+- **Businesses**: Registering a "Business" type account initiates the creation of a business profile in the `Businesses` domain.
+

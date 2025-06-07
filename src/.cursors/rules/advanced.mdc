@@ -48,7 +48,6 @@ We distinguish between server state and client state.
 -   **Role**: The sole and primary tool for managing **server state**.
 -   **Usage**: All CRUD operations on data originating from the server (fetch, create, update, delete) must be handled by `useQuery` and `useMutation`.
 -   **Pattern**: Query and mutation logic is encapsulated in dedicated hooks within `application/hooks/` (e.g., `useAuth`). UI components do not interact directly with `AuthService` or `authApi`.
--   **Keys**: Always use centralized query keys from `application/[feature-name].keys.ts` to ensure consistency and avoid cache collisions.
 
 ### 2.2. Zustand (Client State)
 
