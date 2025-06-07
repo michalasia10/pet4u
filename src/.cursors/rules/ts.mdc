@@ -1,0 +1,113 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# TypeScript Code Comments Policy
+
+As an AI agent, follow these guidelines regarding code comments:
+
+## The most important rule
+1. DO NOT WRITE COMMENTS IN CODE IN ANY LANGUAGE
+
+## General Rules
+
+1. **Self-Documenting Code Over Comments**
+   - Write clear, descriptive variable and function names
+   - Use TypeScript types to document data structures
+   - Break down complex functions into smaller, well-named ones
+   - Let the code speak for itself
+
+2. **No Redundant Comments**
+   - Don't write comments that just repeat what the code does
+   - Example (bad):
+     ```typescript
+     // Add user to database
+     await db.users.add(user);
+     ```
+3. **Do not write comments in code at all !!**
+
+## When to Use Comments
+
+1. **Complex Business Logic**
+   - Only when the business rule is non-obvious
+   - Example (good):
+     ```typescript
+     // Premium users get 20% discount on weekends due to Q4 2023 promotion
+     const finalPrice = isPremium && isWeekend ? price * 0.8 : price;
+     ```
+
+
+3. **Temporary Workarounds**
+   - Document bug ticket numbers
+   - Example (good):
+     ```typescript
+     // Workaround for MUI bug #1234 - Remove once updated to v6
+     const theme = createTheme({ ... });
+     ```
+
+## What to Avoid
+
+1. **Version History Comments**
+   - Don't keep old code in comments
+   - Use version control system instead
+
+2. **Function Signatures**
+   - Let TypeScript types document the interface
+   - Example (bad):
+     ```typescript
+     // Takes user email and password and returns user object
+     function login(email: string, password: string): User
+     ```
+
+3. **Commented-Out Code**
+   - Never leave commented-out code
+   - If code is not needed, delete it
+   - Use version control to track history
+
+## Best Practices
+
+1. **Type Definitions**
+   - Use descriptive types instead of comments
+   ```typescript
+   // Good
+   type HealthMetrics = {
+     height: number;
+     weight: number;
+     bloodPressure: BloodPressure;
+   };
+
+   // Bad
+   // Object containing health metrics like height, weight, blood pressure
+   type Metrics = {
+     h: number; // height
+     w: number; // weight
+     bp: BP;    // blood pressure
+   };
+   ```
+
+2. **Enum Values**
+   - Use descriptive enum names instead of comments
+   ```typescript
+   // Good
+   enum UserRole {
+     SystemAdministrator,
+     HealthcareProfessional,
+     Patient
+   }
+
+   // Bad
+   enum Role {
+     Admin,    // System administrator
+     Doctor,   // Healthcare professional
+     Patient   // Regular patient
+   }
+   ```
+
+Remember: The best comment is no comment - let the code document itself through clear naming, proper types, and good structure.
+

@@ -1,0 +1,97 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Frontend DDD Architecture Guide
+
+This project follows Domain-Driven Design principles adapted for frontend development. Below is the structure and organization of the codebase.
+
+## Project Structure
+
+The main application code is organized in the `src` directory with the following DDD-inspired layout:
+
+### Core Layers
+
+1. **Domain Layer (`src/core/`)**
+   - Contains core business logic and domain models
+   - Domain entities, value objects, and interfaces
+   - Business rules and domain services
+   - Example: [src/core/models/](mdc:src/core/models)
+
+2. **Application Layer (`src/app/`)**
+   - Application services and use cases
+   - State management
+   - Orchestration of domain objects
+   - Example: [src/app/services/](mdc:src/app/services)
+
+3. **Infrastructure Layer (`src/infra/`)**
+   - Technical implementations
+   - API clients
+   - External service adapters
+   - Storage implementations
+   - Example: [src/infra/api/](mdc:src/infra/api)
+
+### Feature Organization
+
+4. **Features (`src/features/`)**
+   - Feature-based modules
+   - Each feature is a self-contained module with its own:
+     - Components
+     - Hooks
+     - Services
+     - State management
+   - Example: [src/features/](mdc:src/features)
+
+### Shared Resources
+
+5. **Shared (`src/shared/`)**
+   - Reusable components
+   - Common utilities
+   - Shared types and interfaces
+   - Example: [src/shared/components/](mdc:src/shared/components)
+
+### Assets and Static Files
+
+6. **Assets (`src/assets/`)**
+   - Images, icons, and other static assets
+   - Example: [src/assets/](mdc:src/assets)
+
+## Entry Points
+
+- Main application entry: [src/main.tsx](mdc:src/main.tsx)
+- Root component: [src/App.tsx](mdc:src/App.tsx)
+
+## Best Practices
+
+1. **Domain Isolation**
+   - Keep domain logic pure and framework-agnostic
+   - Avoid mixing UI concerns with domain logic
+
+2. **Feature Independence**
+   - Each feature should be as independent as possible
+   - Cross-feature communication through application layer
+
+3. **Clean Architecture**
+   - Dependencies flow inward
+   - Core domain doesn't depend on outer layers
+   - Infrastructure depends on interfaces defined in the domain
+
+4. **Shared Module Guidelines**
+   - Only truly reusable code goes in shared
+   - Avoid circular dependencies
+   - Keep shared components generic and configurable
+
+## File Naming Conventions
+
+- React Components: PascalCase (e.g., `UserProfile.tsx`)
+- Hooks: camelCase with 'use' prefix (e.g., `useAuth.ts`)
+- Services: camelCase (e.g., `authService.ts`)
+- Interfaces/Types: PascalCase with 'I' prefix for interfaces (e.g., `IUser.ts`)
+- Constants: UPPER_SNAKE_CASE (e.g., `API_ENDPOINTS.ts`)
+

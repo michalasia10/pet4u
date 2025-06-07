@@ -1,0 +1,95 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# React Router Architecture Guide
+
+## Directory Structure
+
+```
+src/
+├── infra/
+│   └── router/
+│       ├── index.tsx       # Main router configuration with protected routes logic
+│       ├── routes.tsx      # Main routes aggregation
+│       ├── auth.tsx        # Auth feature routes
+│       └── dashboard.tsx   # Dashboard feature routes (example)
+└── features/
+    └── auth/
+        └── presentation/
+            ├── pages/      # Page components
+            └── components/ # Reusable components
+```
+
+## Routing Rules
+
+1. **Route Organization**
+   - Each feature module defines its own routes in `/infra/router/[feature].tsx`
+   - Main routes are aggregated in `/infra/router/routes.tsx`
+   - Protected routes logic in `/infra/router/index.tsx`
+
+2. **Route Types**
+   - Use `NonIndexRouteObject` for routes that may have children
+   - Each route file exports an array of route objects
+   - Lazy loading for route components when possible
+
+3. **Route Naming**
+   - Feature routes should be prefixed with feature name: `/auth/*`, `/dashboard/*`
+   - Use descriptive route names that match the feature domain
+   - Keep URLs clean and semantic
+
+4. **Protected Routes**
+   - All routes except auth routes are protected by default
+   - Auth routes (`/auth/*`) bypass protection
+   - Unauthorized access redirects to `/auth/login`
+
+## Example Route Structure
+
+```typescript
+// /infra/router/auth.tsx
+export const authRoutes: NonIndexRouteObject[] = [
+  {
+    path: '/auth',
+    children: [
+      {
+        path: 'login',
+        element: <LoginPage />,
+      },
+    ],
+  },
+];
+
+// /infra/router/routes.tsx
+export const routes: NonIndexRouteObject[] = [
+  ...authRoutes,
+  {
+    path: '/',
+    lazy: async () => ({
+      element: <Dashboard />,
+    }),
+  },
+];
+```
+
+## Best Practices
+
+1. **Lazy Loading**
+   - Use lazy loading for route components to improve initial load time
+   - Keep route definitions eager loaded for better navigation
+
+2. **Route Protection**
+   - Implement route protection at router level, not component level
+   - Use consistent auth checks across protected routes
+
+3. **Route Parameters**
+   - Use semantic route parameters: `/users/:userId` instead of `/users/:id`
+   - Document required and optional parameters
+
+4. **Error Handling**
+   - Implement catch-all routes for 404 pages
+   - Handle loading and error states in lazy-loaded routes
+
+5. **Type Safety**
+   - Use TypeScript route definitions
+   - Enforce type checking for route parameters and props
