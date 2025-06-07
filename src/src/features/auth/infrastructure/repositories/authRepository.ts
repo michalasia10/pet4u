@@ -1,4 +1,3 @@
-// import apiClient from '../../../../infra/api/apiClient';
 import { authApi } from '../api/authApi';
 import { AuthToken } from '../../domain/valueObjects/AuthToken';
 import { User } from '../../domain/entities/User';
@@ -8,10 +7,10 @@ const TOKEN_STORAGE_KEY = 'authToken';
 
 export class AuthRepositoryImpl {
   public async login(credentials: IAuthCredentialsProps): Promise<{ user: User; token: AuthToken }> {
-    const { user: userProps, token: tokenProps } = await authApi.login(credentials);
+    const { user: userDto, token: tokenDto } = await authApi.login(credentials);
     
-    const user = User.create(userProps);
-    const token = AuthToken.create(tokenProps);
+    const user = User.create(userDto);
+    const token = AuthToken.create(tokenDto);
 
     this.setStoredToken(token);
     return { user, token };
@@ -21,8 +20,9 @@ export class AuthRepositoryImpl {
     const currentToken = this.getStoredToken();
     if (!currentToken) return null;
 
-    const tokenProps = await authApi.refreshToken(currentToken.getRefreshToken());
-    const newToken = AuthToken.create(tokenProps);
+    const tokenDto = await authApi.refreshToken(currentToken.getRefreshToken());
+    
+    const newToken = AuthToken.create(tokenDto);
     
     this.setStoredToken(newToken);
     return newToken;

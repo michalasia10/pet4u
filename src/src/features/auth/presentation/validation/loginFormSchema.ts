@@ -1,7 +1,8 @@
-import * as yup from 'yup';
-import { ValidationSchemaFactory } from '../../../../shared/validation/schemas';
+import { z } from 'zod';
 
-export const loginFormSchema = yup.object().shape({
-  email: ValidationSchemaFactory.email(),
-  pass: ValidationSchemaFactory.password(), // Zmieniono z 'password' na 'pass', aby pasowało do formularza
-}); 
+export const loginFormSchema = z.object({
+  email: z.string().email('Nieprawidłowy format adresu e-mail'),
+  pass: z.string().min(1, 'Hasło jest wymagane'),
+});
+
+export type LoginFormValues = z.infer<typeof loginFormSchema>; 

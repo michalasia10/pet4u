@@ -1,21 +1,27 @@
 // import apiClient from '../../../../infra/api/apiClient';
 import type { IAuthCredentialsProps } from '../../domain/entities/AuthCredentials';
-import type { IAuthTokenProps } from '../../domain/valueObjects/AuthToken';
-import type { IUserProps } from '../../domain/entities/User';
 import { mockedUser, mockedToken } from './mock';
+import { userSchema, type UserDTO } from '../../domain/schemas/user.schema';
+import { authTokenSchema, type AuthTokenDTO } from '../../domain/schemas/authToken.schema';
 
 export const authApi = {
-  async login(credentials: IAuthCredentialsProps): Promise<{ user: IUserProps; token: IAuthTokenProps }> {
+  async login(credentials: IAuthCredentialsProps): Promise<{ user: UserDTO; token: AuthTokenDTO }> {
     console.log('authApi: login called with', credentials);
     // const response = await apiClient.post('/auth/login', credentials);
-    // return response.data;
-
+    // const rawData = response.data;
+    
     // Mocked response
     await new Promise(resolve => setTimeout(resolve, 500));
     if (credentials.email !== 'test@test.com' || credentials.pass !== 'test') {
       throw new Error('API Mock: Nieprawidłowe dane logowania');
     }
-    return Promise.resolve({ user: mockedUser.toJSON(), token: mockedToken.toJSON() });
+    const rawData = { user: mockedUser.toJSON(), token: mockedToken.toJSON() };
+
+   
+    const parsedUser = userSchema.parse(rawData.user);
+    const parsedToken = authTokenSchema.parse(rawData.token);
+
+    return { user: parsedUser, token: parsedToken };
   },
 
   async logout(): Promise<void> {
@@ -24,26 +30,33 @@ export const authApi = {
     return Promise.resolve();
   },
 
-  async refreshToken(refreshToken: string): Promise<IAuthTokenProps> {
+  async refreshToken(refreshToken: string): Promise<AuthTokenDTO> {
     console.log('authApi: refreshToken called with', refreshToken);
     // const response = await apiClient.post('/auth/refresh', { refreshToken });
-    // return response.data;
+    // const rawData = response.data;
 
     // Mocked response
     await new Promise(resolve => setTimeout(resolve, 300));
-    const newMockToken: IAuthTokenProps = {
+    const rawData: AuthTokenDTO = {
       accessToken: `new_mock_access_token_${Date.now()}`,
       refreshToken: refreshToken,
     };
-    return Promise.resolve(newMockToken);
+    
+    // Walidacja i parsowanie za pomocą Zod
+    const parsedToken = authTokenSchema.parse(rawData);
+    return parsedToken;
   },
 
-  async getMe(): Promise<IUserProps> {
+  async getMe(): Promise<UserDTO> {
     console.log('authApi: getMe called');
     // const response = await apiClient.get('/users/me');
-    // return response.data;
+    // const rawData = response.data;
     
     // Mocked response
-    return Promise.resolve(mockedUser.toJSON());
+    const rawData = mockedUser.toJSON();
+    
+    // Walidacja i parsowanie za pomocą Zod
+    const parsedUser = userSchema.parse(rawData);
+    return parsedUser;
   }
 }; 
