@@ -19,6 +19,12 @@
       "passwordLabel": "Password"
     }
   },
+  "community": {
+    "hero": {
+      "title": "Discover places for your pet",
+      "searchPlaceholder": "Search for services, places, specialists..."
+    }
+  },
   "validation": {
     "email": {
       "invalid": "Invalid email format"

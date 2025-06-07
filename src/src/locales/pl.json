@@ -22,6 +22,12 @@
       "passwordLabel": "Hasło"
     }
   },
+  "community": {
+    "hero": {
+      "title": "Odkrywaj miejsca dla Twojego pupila",
+      "searchPlaceholder": "Szukaj usług, miejsc, specjalistów..."
+    }
+  },
   "validation": {
     "email": {
       "invalid": "Nieprawidłowy format adresu e-mail"
