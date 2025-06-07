@@ -1,0 +1,73 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Pet4U Project Architecture Guidelines
+
+This document describes the key architectural principles and patterns used in this project. Its goal is to ensure consistency, scalability, and maintainability of the codebase.
+
+## 1. Feature-Based Architecture
+
+The code is organized into `features` (business functionalities) that are as independent of each other as possible. Any new major functionality (e.g., "appointment management," "pet profile") should constitute a separate feature in the `src/src/features/` directory.
+
+### Internal Feature Structure
+
+Each feature must adhere to the following directory structure, based on the principles of Clean Architecture:
+
+```
+features/
+└── [feature-name]/
+    ├── application/         # Application Logic (Use Cases)
+    │   ├── hooks/           # Hooks (e.g., useAuth) - a facade for the UI
+    │   ├── services/        # Services (e.g., AuthService) - orchestration
+    │   └── *.keys.ts        # Keys for TanStack Query
+    │
+    ├── domain/              # Pure business logic, independent of frameworks
+    │   ├── entities/        # Entities (objects with identity and logic, e.g., User)
+    │   ├── valueObjects/    # Value Objects (e.g., AuthToken)
+    │   ├── repositories/    # Repository Interfaces (e.g., IAuthState)
+    │   └── types.ts         # Simple, shared types for the feature
+    │
+    ├── infrastructure/      # Implementation of technical details
+    │   ├── api/             # Dedicated API client for the feature (e.g., authApi)
+    │   └── repositories/    # Repository implementations (e.g., authRepository, auth.store)
+    │
+    └── presentation/        # UI Layer (React, MUI)
+        ├── components/      # UI components specific to the feature (e.g., LoginForm)
+        ├── pages/           # Full pages/views (e.g., LoginPage)
+        └── validation/      # UI validation schemas (for react-hook-form)
+```
+
+## 2. State Management: TanStack Query + Zustand
+
+We distinguish between server state and client state.
+
+### 2.1. TanStack Query (Server State)
+
+-   **Role**: The sole and primary tool for managing **server state**.
+-   **Usage**: All CRUD operations on data originating from the server (fetch, create, update, delete) must be handled by `useQuery` and `useMutation`.
+-   **Pattern**: Query and mutation logic is encapsulated in dedicated hooks within `application/hooks/` (e.g., `useAuth`). UI components do not interact directly with `AuthService` or `authApi`.
+-   **Keys**: Always use centralized query keys from `application/[feature-name].keys.ts` to ensure consistency and avoid cache collisions.
+
+### 2.2. Zustand (Client State)
+
+-   **Role**: Used to manage **global client state**.
+-   **Usage**: It stores simple UI state (e.g., "is the menu open?") and acts as a **synchronous mirror** for critical server data that requires immediate access from non-React modules (e.g., `apiClient`).
+-   **"Mirror" Pattern**: In `useAuth`, `useQuery` is the source of truth for the session. `useEffect` is used to synchronize data from `useQuery` (e.g., `sessionUser`) to the Zustand store (`setUser`). This gives the rest of the application simple, synchronous access to `isAuthenticated` and `user`.
+
+## 3. Global Infrastructure (`src/infra`)
+
+Global, shared services are located in `src/infra/`.
+
+-   `api/apiClient.ts`: A global `axios` instance with interceptors for handling authorization and token refresh. It is configured once at application startup.
+-   `navigation/navigationService.ts`: Allows for imperative navigation from anywhere in the code.
+-   `router/`: A modular routing system. Each feature defines its own routes (in object format), which are then assembled in `routes.tsx` using the `useRoutes` hook.
+
+## 4. Best Practices
+
+-   **Dependency Rule**: Dependencies must be directed "inward": `Presentation` -> `Application` -> `Domain`. `Infrastructure` implements interfaces from `Domain`. **The `Domain` layer must not have any dependencies on frameworks or other layers.**
+-   **Encapsulation**: UI components in `presentation` should only use hooks from `application/hooks`. They should not "know" about the existence of repositories, APIs, or token management logic.
+-   **Immutability**: Entities and value objects in the `domain` layer should be immutable. Properties should be `readonly`, and modifications should create new instances.
+
+Adherence to these principles is crucial for the success of the project.
