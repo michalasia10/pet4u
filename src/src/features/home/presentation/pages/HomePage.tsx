@@ -1,22 +1,24 @@
 import React from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
-import { useAuth } from '../../../auth/application/hooks/useAuth';
+import { useAuthContext } from '../../../../shared/context/AuthContext';
+import { useHomePagePresenter } from '../hooks/useHomePagePresenter';
 
 export const HomePage: React.FC = () => {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, user } = useAuthContext();
+  const { welcomeText, subtitleText, loginButtonText } = useHomePagePresenter();
 
   return (
-    <Box sx={{ textAlign: 'center', mt: 8 }}>
+    <Box sx={{ textAlign: 'center' }}>
       <Typography variant="h2" component="h1" gutterBottom>
-        Witaj w Pet4U!
+        {welcomeText}
       </Typography>
       <Typography variant="h5" color="text.secondary" paragraph>
-        Wszystko dla Twojego zwierzaka w jednym miejscu.
+        {subtitleText}
       </Typography>
       {isAuthenticated ? (
         <Typography variant="h6">
-          Cześć, {user?.getFirstName()}!
+          Cześć, {user?.firstName}!
         </Typography>
       ) : (
         <Button
@@ -26,7 +28,7 @@ export const HomePage: React.FC = () => {
           size="large"
           sx={{ mt: 4 }}
         >
-          Zaloguj się, aby rozpocząć
+          {loginButtonText}
         </Button>
       )}
     </Box>

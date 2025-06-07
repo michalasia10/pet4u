@@ -8,6 +8,7 @@ import { MainLayout } from './shared/MainLayout';
 import { theme } from './shared/theme';
 import navigationService from './infra/navigation/navigationService';
 import { setupApiClientAuth } from './app/setup';
+import { AuthProvider } from './features/auth/application/context/AuthContext';
 
 
 setupApiClientAuth();
@@ -27,13 +28,15 @@ export const App: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Router>
-          <NavigationSetter />
-          <MainLayout>
-            <AppRoutes />
-          </MainLayout>
-        </Router>
+        <AuthProvider>
+          <CssBaseline />
+          <Router>
+            <NavigationSetter />
+            <MainLayout>
+              <AppRoutes />
+            </MainLayout>
+          </Router>
+        </AuthProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );

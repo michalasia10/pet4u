@@ -1,9 +1,4 @@
-export interface IUserProps {
-  id: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-}
+import type { IUser } from '../../../../shared/types/user';
 
 export class User {
   private readonly id: string;
@@ -11,7 +6,7 @@ export class User {
   private readonly firstName: string;
   private readonly lastName:string;
 
-  private constructor(props: IUserProps) {
+  private constructor(props: IUser) {
     // Prosta walidacja jako przykład
     if (!props.id) throw new Error("User ID is required");
     if (!props.email.includes('@')) throw new Error("Invalid email format for User");
@@ -23,7 +18,7 @@ export class User {
     this.lastName = props.lastName;
   }
 
-  public static create(props: IUserProps): User {
+  public static create(props: IUser): User {
     return new User(props);
   }
   
@@ -43,7 +38,7 @@ export class User {
     return this.lastName;
   }
 
-  public toJSON(): IUserProps {
+  public toJSON(): IUser {
     return {
       id: this.id,
       email: this.email,
