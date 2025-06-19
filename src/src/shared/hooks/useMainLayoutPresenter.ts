@@ -5,7 +5,7 @@ export const useMainLayoutPresenter = () => {
 
   return {
     appTitle: t('app_title'),
-    logoutButtonText: t('logout_button'),
-    loginButtonText: t('login_page_title'), // Reusing the key for "Zaloguj się"
+    logoutButtonText: t('auth.logout_button'),
+    loginButtonText: t('auth.login_page_title'),
   };
 }; 
