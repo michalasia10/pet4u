@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, Container, Paper, Grid, Link } from '@mui/material';
+import { Box, Typography, Container, Paper, Stack, Link } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import { LoginForm } from '../components/LoginForm';
 import { useLoginPagePresenter } from '../hooks/useLoginPagePresenter';
@@ -26,18 +26,14 @@ export const LoginPage: React.FC = () => {
         <Box sx={{ mt: 3, width: '100%' }}>
           <LoginForm />
         </Box>
-        <Grid container direction="column" alignItems="center" sx={{ mt: 2, gap: 1 }}>
-          <Grid item>
-            <Link component={RouterLink} to="/forgot-password" variant="body2">
-              {forgotPasswordText}
-            </Link>
-          </Grid>
-          <Grid item>
-            <Link component={RouterLink} to="/register" variant="body2">
-              {noAccountText}
-            </Link>
-          </Grid>
-        </Grid>
+        <Stack direction="column" alignItems="center" sx={{ mt: 2, gap: 1 }}>
+          <Link component={RouterLink} to="/forgot-password" variant="body2">
+            {forgotPasswordText}
+          </Link>
+          <Link component={RouterLink} to="/register" variant="body2">
+            {noAccountText}
+          </Link>
+        </Stack>
       </Paper>
     </Container>
   );

@@ -1,5 +1,5 @@
 import { PetFriendlyPlace } from "../../domain/entities/PetFriendlyPlace";
-import { Card, CardContent, CardMedia, Typography, Button, Box, Chip, Stack, alpha } from "@mui/material";
+import { Card, CardContent, CardMedia, Typography, Button, Box, Chip, alpha } from "@mui/material";
 import { Star, LocationOn } from "@mui/icons-material";
 import type { PlaceCategory } from "../../domain/types";
 
