@@ -6,6 +6,20 @@
   "login_button": "Log in to get started",
   "logout_button": "Logout",
   "app_title": "Pet4U",
+  "header": {
+    "nav": {
+      "places": "Places",
+      "map": "Map"
+    },
+    "profileMenu": {
+      "profile": "Profile",
+      "logout": "Logout"
+    },
+    "petSelector": {
+      "dog": "Dog",
+      "cat": "Cat"
+    }
+  },
   "auth": {
     "login_page_title": "Sign In",
     "login_button": "Log in to get started",
@@ -22,7 +36,28 @@
   "community": {
     "hero": {
       "title": "Discover places for your pet",
+      "subtitle": "Discover the best pet-friendly places nearby or book a visit with specialists!",
       "searchPlaceholder": "Search for services, places, specialists..."
+    },
+    "categories": {
+      "all": "All",
+      "restaurant": "Restaurants",
+      "shop": "Shops",
+      "park": "Parks",
+      "hotel": "Hotels",
+      "vet": "Vets",
+      "grooming": "Grooming",
+      "cafe": "Cafes"
+    },
+    "results": {
+      "title": "Suggested for:",
+      "found_one": "Found {{count}} place",
+      "found_other": "Found {{count}} places",
+      "noResultsTitle": "No results",
+      "noResultsSubtitle": "Try changing filters or searching for other places"
+    },
+    "error": {
+      "loading": "An error occurred while loading data"
     }
   },
   "validation": {

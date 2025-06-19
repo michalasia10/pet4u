@@ -1,25 +1,31 @@
-import { useRoutes } from 'react-router-dom';
-import type { RouteObject } from 'react-router-dom';
+import type { IndexRouteObject, NonIndexRouteObject, RouteObject } from 'react-router-dom';
 import { authRoutes } from './auth';
 import { homeRoutes } from './home';
 import { communityRoutes } from './community';
-import { ProtectedRoute } from './ProtectedRoute';
 
-const protectedAppRoutes: RouteObject[] = [
-    ...communityRoutes,
+export type AppRoute = (Omit<NonIndexRouteObject, 'children'> | IndexRouteObject) & {
+  isPublic?: boolean;
+  children?: AppRoute[];
+};
 
-].map((route: RouteObject) => ({
-  ...route,
-  element: <ProtectedRoute>{route.element}</ProtectedRoute>
-}));
+const markRoutePublic = (routes: RouteObject[], markAsPublic: boolean): AppRoute[] => {
+  return routes.map((route) => {
+      const { children, ...rest } = route;
+      const newRoute: AppRoute = {
+          ...rest,
+          isPublic: markAsPublic,
+      };
+      if (children) {
+          newRoute.children = markRoutePublic(children, markAsPublic);
+      }
+      return newRoute;
+  });
+};
 
-const allRoutes = [
-  ...homeRoutes,
-  ...authRoutes,
-  ...protectedAppRoutes,
-];
+const publicRoutes: AppRoute[] = markRoutePublic([...authRoutes, ...homeRoutes], true);
+const protectedRoutes: AppRoute[] = markRoutePublic(communityRoutes, false);
 
-export const AppRoutes = () => {
-  const element = useRoutes(allRoutes);
-  return element;
-}; 
+export const appRoutes: AppRoute[] = [
+  ...publicRoutes,
+  ...protectedRoutes,
+]; 

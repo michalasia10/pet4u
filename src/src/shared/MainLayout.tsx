@@ -1,73 +1,24 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Button, Container, Box } from '@mui/material';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { useAuthContext } from '../shared/context/AuthContext';
-import { useMainLayoutPresenter } from './hooks/useMainLayoutPresenter';
-import { PetSwitcher } from './components/PetSwitcher';
+import { Box } from '@mui/material';
+import { Header } from './components/Header';
 
 export const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { isAuthenticated, logout } = useAuthContext();
-  const navigate = useNavigate();
-  const { appTitle, logoutButtonText, loginButtonText } = useMainLayoutPresenter();
-
-  const handleLogout = () => {
-    logout();
-    navigate('/');
-  };
-
   return (
     <Box
       sx={{
         display: 'flex',
         flexDirection: 'column',
         minHeight: '100vh',
+        bgcolor: 'background.default',
+        margin: 0,
+        padding: 0,
+        width: '100%',
       }}
     >
-      <AppBar position="static">
-        <Toolbar>
-          <Typography
-            variant="h6"
-            component={RouterLink}
-            to="/"
-            sx={{ color: 'inherit', textDecoration: 'none' }}
-          >
-            {appTitle}
-          </Typography>
-          <Button
-            color="inherit"
-            component={RouterLink}
-            to="/community"
-            sx={{ ml: 2 }}
-          >
-            Miejsca
-          </Button>
-          <Box sx={{ flexGrow: 1 }} />
-          {isAuthenticated ? (
-            <>
-              <PetSwitcher />
-              <Button color="inherit" onClick={handleLogout} sx={{ ml: 2 }}>
-                {logoutButtonText}
-              </Button>
-            </>
-          ) : (
-            <Button color="inherit" component={RouterLink} to="/auth/login">
-              {loginButtonText}
-            </Button>
-          )}
-        </Toolbar>
-      </AppBar>
-      <Container
-        maxWidth={false}
-        sx={{
-          flexGrow: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
+      <Header />
+      <Box component="main" sx={{ flexGrow: 1, margin: 0, padding: 0, width: '100%' }}>
         {children}
-      </Container>
+      </Box>
     </Box>
   );
 }; 

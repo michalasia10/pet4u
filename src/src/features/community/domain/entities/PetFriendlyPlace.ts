@@ -1,4 +1,4 @@
-import type { PlaceCategory } from '../types';
+import type { PetType, PlaceCategory } from '../types';
 
 type PetFriendlyPlaceProps = {
   id: string;
@@ -17,7 +17,7 @@ type PetFriendlyPlaceProps = {
   createdAt: Date;
   averageRating: number;
   photoUrl?: string;
-  speciesAffinity?: 'dog' | 'cat';
+  speciesAffinity?: PetType;
 };
 
 export class PetFriendlyPlace {
@@ -37,7 +37,7 @@ export class PetFriendlyPlace {
   public readonly createdAt: Date;
   public readonly averageRating: number;
   public readonly photoUrl?: string;
-  public readonly speciesAffinity?: 'dog' | 'cat';
+  public readonly speciesAffinity?: PetType;
 
   constructor(props: PetFriendlyPlaceProps) {
     this.id = props.id;

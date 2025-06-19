@@ -4,6 +4,20 @@
   "welcome": "Witaj w Pet4U!",
   "subtitle": "Wszystko dla Twojego zwierzaka w jednym miejscu.",
   "app_title": "Pet4U",
+  "header": {
+    "nav": {
+      "places": "Miejsca",
+      "map": "Mapa"
+    },
+    "profileMenu": {
+      "profile": "Profil",
+      "logout": "Wyloguj"
+    },
+    "petSelector": {
+      "dog": "Pies",
+      "cat": "Kot"
+    }
+  },
   "nav": {
     "home": "Strona Główna",
     "about": "O nas",
@@ -25,7 +39,29 @@
   "community": {
     "hero": {
       "title": "Odkrywaj miejsca dla Twojego pupila",
+      "subtitle": "Odkryj najlepsze miejsca w okolicy, które akceptują zwierzęta lub zarezerwuj wizytę u specjalistów!",
       "searchPlaceholder": "Szukaj usług, miejsc, specjalistów..."
+    },
+    "categories": {
+      "all": "Wszystkie",
+      "restaurant": "Restauracje",
+      "shop": "Sklepy",
+      "park": "Parki",
+      "hotel": "Hotele",
+      "vet": "Weterynarze",
+      "grooming": "Grooming",
+      "cafe": "Kawiarnie"
+    },
+    "results": {
+      "title": "Proponowane dla:",
+      "found_one": "Znaleziono {{count}} miejsce",
+      "found_few": "Znaleziono {{count}} miejsca",
+      "found_many": "Znaleziono {{count}} miejsc",
+      "noResultsTitle": "Brak wyników",
+      "noResultsSubtitle": "Spróbuj zmienić filtry lub wyszukaj inne miejsca"
+    },
+    "error": {
+      "loading": "Wystąpił błąd podczas ładowania danych"
     }
   },
   "validation": {

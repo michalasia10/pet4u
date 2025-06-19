@@ -1,5 +1,5 @@
 import type { RouteObject } from 'react-router-dom';
-import { CommunityPage } from '../../features/community/presentation/pages/CommunityPage';
+import CommunityPage from '../../features/community/presentation/pages/CommunityPage';
 
 export const communityRoutes: RouteObject[] = [
   {
