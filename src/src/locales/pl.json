@@ -36,7 +36,7 @@
       "passwordLabel": "Hasło"
     }
   },
-  "community": {
+  "places": {
     "hero": {
       "title": "Odkrywaj miejsca dla Twojego pupila",
       "subtitle": "Odkryj najlepsze miejsca w okolicy, które akceptują zwierzęta lub zarezerwuj wizytę u specjalistów!",
@@ -54,6 +54,7 @@
     },
     "results": {
       "title": "Proponowane dla:",
+      "found": "Znaleziono {{count}} miejsc",
       "found_one": "Znaleziono {{count}} miejsce",
       "found_few": "Znaleziono {{count}} miejsca",
       "found_many": "Znaleziono {{count}} miejsc",

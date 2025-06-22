@@ -1,7 +1,7 @@
 import type { IndexRouteObject, NonIndexRouteObject, RouteObject } from 'react-router-dom';
 import { authRoutes } from './auth';
 import { homeRoutes } from './home';
-import { communityRoutes } from './community';
+import { placeRoutes } from './places';
 
 export type AppRoute = (Omit<NonIndexRouteObject, 'children'> | IndexRouteObject) & {
   isPublic?: boolean;
@@ -23,7 +23,7 @@ const markRoutePublic = (routes: RouteObject[], markAsPublic: boolean): AppRoute
 };
 
 const publicRoutes: AppRoute[] = markRoutePublic([...authRoutes, ...homeRoutes], true);
-const protectedRoutes: AppRoute[] = markRoutePublic(communityRoutes, false);
+const protectedRoutes: AppRoute[] = markRoutePublic(placeRoutes, false);
 
 export const appRoutes: AppRoute[] = [
   ...publicRoutes,

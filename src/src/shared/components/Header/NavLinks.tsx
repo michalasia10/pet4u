@@ -39,7 +39,7 @@ export const NavLinks = () => {
   const { t } = useTranslation();
   return (
     <Box sx={{ ml: 6, display: { xs: 'none', md: 'flex' }, gap: 2 }}>
-      <NavLinkButton to="/community">{t('header.nav.places')}</NavLinkButton>
+      <NavLinkButton to="/places">{t('header.nav.places')}</NavLinkButton>
       <NavLinkButton to="/map">{t('header.nav.map')}</NavLinkButton>
     </Box>
   );

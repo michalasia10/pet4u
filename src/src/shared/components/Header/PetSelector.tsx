@@ -1,6 +1,6 @@
 import { Select, MenuItem } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import type { PetType } from "../../../features/community/domain/types";
+import type { PetType } from "../../../features/places/domain/types";
 
 interface PetSelectorProps {
   selectedPetType: PetType;

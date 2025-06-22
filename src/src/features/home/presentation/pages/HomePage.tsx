@@ -23,7 +23,7 @@ export const HomePage: React.FC = () => {
         </Typography>
         <Button
           component={RouterLink}
-          to="/community"
+          to="/places"
           variant="contained"
           size="large"
           sx={{ mt: 4 }}

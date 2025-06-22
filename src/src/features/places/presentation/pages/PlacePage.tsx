@@ -16,7 +16,7 @@ import type { PlaceCategory } from "../../domain/types"
 import { useGetPlaces } from "../../application/hooks/useGetPlaces"
 import { PlaceCard } from "../components/PlaceCard"
 import { usePetStore } from "../../../../shared/context/PetContext"
-import { useCommunityPagePresenter } from "../hooks/useCommunityPagePresenter"
+import { usePlacePagePresenter } from "../hooks/usePlacePagePresenter"
 
 
 export default function CommunityPage() {
@@ -25,12 +25,12 @@ export default function CommunityPage() {
   const [selectedCategory, setSelectedCategory] = useState<PlaceCategory>("all")
   const [searchQuery, setSearchQuery] = useState("")
 
-  const { filteredPlaces, isLoading, error } = useGetPlaces({
+  const { places, isLoading, error } = useGetPlaces({
     petType: selectedPetType,
     category: selectedCategory,
     searchQuery: searchQuery,
   });
-  const { hero, categories, results, error: errorMessages, petName } = useCommunityPagePresenter();
+  const { hero, categories, results, error: errorMessages, petName } = usePlacePagePresenter();
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
@@ -203,7 +203,7 @@ export default function CommunityPage() {
           >
             <FilterList fontSize="small" />
             <Typography variant="body2" sx={{ fontWeight: 500 }}>
-              {results.found(filteredPlaces.length)}
+              {results.found(places.length)}
             </Typography>
           </Box>
         </Box>
@@ -224,7 +224,7 @@ export default function CommunityPage() {
               },
             }}
           >
-            {filteredPlaces.map((place) => (
+            {places.map((place) => (
               <PlaceCard
                 key={place.id}
                 place={place}
@@ -234,7 +234,7 @@ export default function CommunityPage() {
           </Box>
         )}
 
-        {!isLoading && filteredPlaces.length === 0 && (
+        {!isLoading && places.length === 0 && (
           <Box
             sx={{
               textAlign: 'center',

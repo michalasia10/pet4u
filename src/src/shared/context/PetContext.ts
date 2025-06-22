@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { PetType } from '../../features/community/domain/types';
+import type { PetType } from '../../features/places/domain/types';
 
 // Tymczasowa definicja - do przeniesienia do features/users/domain/entities
 export interface Pet {
