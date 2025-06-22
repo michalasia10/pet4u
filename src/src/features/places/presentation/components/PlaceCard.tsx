@@ -2,6 +2,7 @@ import { PetFriendlyPlace } from "../../domain/entities/PetFriendlyPlace";
 import { Card, CardContent, CardMedia, Typography, Button, Box, Chip, alpha } from "@mui/material";
 import { Star, LocationOn } from "@mui/icons-material";
 import type { PlaceCategory } from "../../domain/types";
+import navigationService from "../../../../infra/navigation/navigationService";
 
 
 interface Category {
@@ -106,6 +107,7 @@ export const PlaceCard = ({ place, category }: PlaceCardProps) => {
           <Button
             variant="contained"
             size="small"
+            onClick={() => navigationService.navigateTo(`/places/${place.id}`)}
             sx={{
               minWidth: 'auto',
               px: 2,

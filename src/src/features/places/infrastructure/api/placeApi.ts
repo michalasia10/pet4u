@@ -1,6 +1,62 @@
 import type { AddPlaceDTO } from '../../domain/repositories/IPlaceRepository';
 import type { PetType } from '../../domain/types';
 import { PetFriendlyPlace } from '../../domain/entities/PetFriendlyPlace';
+import { PlaceDetails } from '../../domain/entities/PlaceDetails';
+import type { Review, Amenity, ContactInfo } from '../../domain/entities/PlaceDetails';
+
+// --- MOCK DETAILED DATA ---
+const detailedPlaceData: PlaceDetails = new PlaceDetails({
+  id: '1',
+  name: 'Psi Park Centralny',
+  address: 'ul. Parkowa 15, Warszawa',
+  location: { latitude: 52.2297, longitude: 21.0122 },
+  category: 'park',
+  description: 'Przestronny park dla psów z oddzielną strefą dla małych i dużych psów. Wyposażony w przeszkody, miski na wodę i ławki dla właścicieli. Idealne miejsce na socjalizację Twojego pupila i spotkanie innych miłośników zwierząt.',
+  addedBy: { userId: 'user1', userName: 'Anna Kowalska' },
+  createdAt: new Date('2024-01-15'),
+  averageRating: 4.8,
+  photoUrl: 'https://images.unsplash.com/photo-1544717297-fa95b6ee9643?w=400',
+  speciesAffinity: 'dog',
+  // Detailed properties
+  galleryImages: [
+    "https://psinosek.pl/wp-content/uploads/2023/09/dog-niemiecki.webp",
+    "https://psinosek.pl/wp-content/uploads/2023/09/dog-niemiecki.webp",
+    "https://psinosek.pl/wp-content/uploads/2023/09/dog-niemiecki.webp",
+    "https://psinosek.pl/wp-content/uploads/2023/09/dog-niemiecki.webp",
+  ],
+  reviews: [
+    {
+      id: 'rev1',
+      author: "Anna K.",
+      avatarUrl: "https://i.pravatar.cc/150?u=a042581f4e29026704d",
+      rating: 5,
+      date: "2 dni temu",
+      comment: "Fantastyczne miejsce! Mój pies uwielbia tutaj biegać. Personel bardzo przyjazny i pomocny.",
+    },
+    {
+      id: 'rev2',
+      author: "Marcin W.",
+      avatarUrl: "https://i.pravatar.cc/150?u=a042581f4e29026704e",
+      rating: 4,
+      date: "1 tydzień temu",
+      comment: "Świetne miejsce na spacer z psem. Duży wybór akcesoriów i karmy. Polecam!",
+    },
+  ],
+  amenities: [
+      { name: "Miski na wodę" },
+      { name: "Przeszkody" },
+      { name: "Ogrodzenie" },
+      { name: "Oświetlenie" },
+      { name: "Worki na odchody" },
+      { name: "Ławki" },
+  ],
+  contact: {
+      phone: "+48 123 456 789",
+      website: "www.psipark.pl",
+  },
+  openingHours: "Pon-Nie: 6:00 - 22:00",
+});
+
 
 // Mock data - same as before but now in placeApi
 const mockPlaces = [
@@ -122,6 +178,11 @@ export const placeApi = {
   fetchPlaceById: async (id: string): Promise<PetFriendlyPlace> => {
     await new Promise(resolve => setTimeout(resolve, 300));
     
+    // Return the detailed mock data if the ID matches
+    if (id === '1') {
+      return detailedPlaceData;
+    }
+
     const place = mockPlaces.find(p => p.id === id);
     if (!place) {
       throw new Error(`Place with id ${id} not found`);
